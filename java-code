@@ -19,4 +19,4 @@ function ignore_package_names() {
 }
 
 # -exec cat works with paths that contain spaces, while pipe through xargs cat does not
-find $srcs -name '*.java' -exec cat {} \; | ignore_package_names | ignore_comments
+find $srcs -name '*.java' -not -path '*/src/test/*' -not -path '*/target/*' -exec bash -c '(>&2 echo "{}") && cat {}' \; | ignore_package_names | ignore_comments
